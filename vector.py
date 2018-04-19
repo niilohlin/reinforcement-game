@@ -1,19 +1,27 @@
 
-from typing import *
+from typing import Tuple
 
 class Vector:
-    def __init__(self, x: int, y: int) -> None:
-        self.x = x # type: int
-        self.y = y # type: int
+    def __init__(self, x: float, y: float) -> None:
+        self.x = x # type: float
+        self.y = y # type: float
 
-    def to_tuple(self) -> Tuple[int, int]:
+    def to_tuple(self) -> Tuple[float, float]:
         return (self.x, self.y)
 
-class Size:
-    def __init__(self, width: int, height: int) -> None:
-        self.width = width # type: int
-        self.height = height # type: int
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y)
 
-    def to_tuple(self) -> Tuple[int, int]:
+    def __iadd__(self, other):
+        self.x += other.x
+        self.y += other.y
+        return self
+
+class Size:
+    def __init__(self, width: float, height: float) -> None:
+        self.width = width # type: float
+        self.height = height # type: float
+
+    def to_tuple(self) -> Tuple[float, float]:
         return (self.width, self.height)
 

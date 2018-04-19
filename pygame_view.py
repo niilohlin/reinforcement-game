@@ -46,9 +46,9 @@ class PygameView:
                     pygame.quit()
                     sys.exit()
 
+            self.game.update()
 
             self.surface.fill((255,255,255))
-
             self.screen.blit(self.surface, (0,0))
             self.draw_game()
 
