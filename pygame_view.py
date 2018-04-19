@@ -5,12 +5,13 @@ import time
 import os
 import random
 from game import *
+from keyboard_controller import KeyboardController
 
 from pygame.locals import RLEACCEL, QUIT, K_r, K_SPACE, K_UP, K_LEFT, K_RIGHT, K_w, K_d, K_a, K_e
 
 
 class PygameView:
-    def __init__(self, game):
+    def __init__(self, game, controller):
         self.FPS = 60
         self.fpsClock = pygame.time.Clock()
 
@@ -20,6 +21,7 @@ class PygameView:
         self.surface.fill((255,255,255))
         self.clock = pygame.time.Clock()
         self.game = game
+        self.controller = controller
         pygame.key.set_repeat(1, 1)
 
 
@@ -46,6 +48,7 @@ class PygameView:
                     pygame.quit()
                     sys.exit()
 
+            self.controller.control(game, keys)
             self.game.update()
 
             self.surface.fill((255,255,255))
@@ -60,6 +63,7 @@ class PygameView:
 if __name__ == '__main__':
     pygame.init()
     game = Game()
-    view = PygameView(game)
+    controller = KeyboardController(game.players[0])
+    view = PygameView(game, controller)
     view.run()
 
