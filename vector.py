@@ -1,5 +1,6 @@
 
 from typing import Tuple
+from math import atan
 
 class Vector:
     def __init__(self, x: float, y: float) -> None:
@@ -17,11 +18,19 @@ class Vector:
         self.y += other.y
         return self
 
-class Size:
-    def __init__(self, width: float, height: float) -> None:
-        self.width = width # type: float
-        self.height = height # type: float
+    def __sub__(self, other):
+        return Vector(self.x - other.x, self.y - other.y)
 
-    def to_tuple(self) -> Tuple[float, float]:
-        return (self.width, self.height)
+    @property
+    def width(self) -> float:
+        return self.x
+
+    @property
+    def height(self) -> float:
+        return self.y
+
+    @property
+    def angle(self) -> float:
+        return atan(self.y/self.x)
+
 

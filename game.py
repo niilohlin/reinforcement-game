@@ -1,11 +1,12 @@
 
-from typing import List
+from typing import List, TYPE_CHECKING
 
 from vector import *
 from rect import *
 
 GAME_WIDTH = 800 # type: float
 GAME_HEIGHT = 600 # type: float
+
 
 class Game:
     def __init__(self) -> None:
@@ -28,5 +29,10 @@ class Game:
         for player in self.players:
             player.update()
 
+    def _detect_collision(self) -> None:
+        self.players[0].detect_collision_and_bounce(self.players[1].frame)
+        self.players[1].detect_collision_and_bounce(self.players[0].frame)
+
     def update(self) -> None:
         self._update_players()
+        self._detect_collision()
