@@ -26,20 +26,20 @@ class Rect:
     def covers(self, vector: Vector) -> bool:
         return self.left <= vector.x <= self.right and self.top <= vector.y <= self.bottom
 
+    def moved(self, vector: Vector) -> 'Rect':
+        return Rect(self.origin.x + vector.x, self.origin.y + vector.y, self.size.width, self.size.height)
+
     @property
-    def _points(self) -> Iterator[Vector]:
+    def points(self) -> Iterator[Vector]:
         yield self.origin
         yield self.origin + Vector(self.size.width, 0)
         yield self.origin + Vector(0, self.size.height)
         yield self.origin + self.size
 
-    def angle_between(self, other) -> float:
-        return (self.origin - other.origin).angle
-
-    def intersects(self, other: 'Rect', recurse: bool = True) -> Optional[float]:
-        for point in other._points:
+    def intersects(self, other: 'Rect', recurse: bool = True) -> bool:
+        for point in other.points:
             if self.covers(point):
-                return self.angle_between(other)
+                return True
         if recurse:
             return other.intersects(self, False)
-        return None
+        return False

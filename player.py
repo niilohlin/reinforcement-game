@@ -2,7 +2,7 @@
 from vector import *
 from rect import *
 from game import Game
-from utils import sign
+from utils import sign, any
 from typing import Optional
 from math import atan
 
@@ -58,28 +58,38 @@ class Player:
             self.vel.y = min(0, self.vel.y)
             self.frame.origin.y = min(self._game.floor.top, self.frame.bottom) - self.frame.size.height
 
-    def detect_collision_and_bounce(self, rect: Rect) -> Optional[float]:
-        angle = self.frame.intersects(rect)
-        if not angle:
-            return None
+    @property
+    def _next_x_rect(self) -> Rect:
+        return self.frame.moved(Vector(self.vel.x, 0))
 
-        print("atan(rect.size.angle)       = " + str(atan(rect.size.angle)))
-        print("atan(self.frame.size.angle) = " + str(atan(self.frame.size.angle)))
-        print("angle                       = " + str(angle)) # 1.3887088178733646
-        #0.8581339435835402
+    @property
+    def _next_y_rect(self) -> Rect:
+        return self.frame.moved(Vector(0, self.vel.y))
 
-#        if atan(rect.size.angle) > angle or angle > atan(self.frame.size.angle):
-#            print("stomp")
-#            self.vel.y *= -1
-#            self.frame.origin.y = rect.origin.y - self.frame.size.height - 1
-#
-#        if angle < atan(self.frame.size.angle):
-#            print("side 1")
-#            self.vel.x *= -1
-#
-#        if angle > atan(rect.size.angle):
-#            print("side 2")
-#            self.vel.x *= -1
+    def _snap_horizontally_to_rect(self, rect: Rect) -> None:
+        if self.vel.x > 0:
+            self.frame.origin.x = rect.origin.x - self.frame.size.width
+        elif self.vel.x < 0:
+            self.frame.origin.x = rect.right
 
-        return angle
+
+    def _snap_vertically_to_rect(self, rect: Rect) -> None:
+        if self.vel.y > 0:
+            self.frame.origin.y = rect.origin.y - self.frame.size.height
+        elif self.vel.y < 0:
+            self.frame.origin.y = rect.bottom
+
+
+    def detect_collision_and_bounce(self, other: 'Player') -> bool:
+        if self._next_x_rect.intersects(other.frame):
+            self._snap_horizontally_to_rect(other.frame)
+            self.vel.x *= -1
+            return False
+
+        if self._next_y_rect.intersects(other.frame):
+            self._snap_vertically_to_rect(other.frame)
+            self.vel.y *= -1
+            return True
+
+        return False
 

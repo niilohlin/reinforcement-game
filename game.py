@@ -30,8 +30,7 @@ class Game:
             player.update()
 
     def _detect_collision(self) -> None:
-        self.players[0].detect_collision_and_bounce(self.players[1].frame)
-        self.players[1].detect_collision_and_bounce(self.players[0].frame)
+        self.players[0].detect_collision_and_bounce(self.players[1])
 
     def update(self) -> None:
         self._update_players()
