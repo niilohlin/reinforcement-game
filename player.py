@@ -67,16 +67,16 @@ class Player:
         return self.frame.moved(Vector(0, self.vel.y))
 
     def _snap_horizontally_to_rect(self, rect: Rect) -> None:
-        if self.vel.x > 0:
+        if self.frame.left < rect.left:
             self.frame.origin.x = rect.origin.x - self.frame.size.width
-        elif self.vel.x < 0:
+        elif self.frame.left > rect.left:
             self.frame.origin.x = rect.right
 
 
     def _snap_vertically_to_rect(self, rect: Rect) -> None:
-        if self.vel.y > 0:
+        if self.frame.top < rect.top:
             self.frame.origin.y = rect.origin.y - self.frame.size.height
-        elif self.vel.y < 0:
+        elif self.frame.top > rect.top:
             self.frame.origin.y = rect.bottom
 
 
@@ -84,6 +84,11 @@ class Player:
         if self._next_x_rect.intersects(other.frame):
             self._snap_horizontally_to_rect(other.frame)
             self.vel.x, other.vel.x = other.vel.x, self.vel.x
+            return False
+
+        if other._next_x_rect.intersects(self.frame):
+            other._snap_horizontally_to_rect(self.frame)
+            other.vel.x, self.vel.x = self.vel.x, other.vel.x
             return False
 
         if self._next_y_rect.intersects(other.frame):
@@ -96,5 +101,21 @@ class Player:
                 self.vel.y, other.vel.y = other.vel.y, self.vel.y
             return True
 
+        if other._next_y_rect.intersects(self.frame):
+            other._snap_vertically_to_rect(self.frame)
+            if self.is_on_floor:
+                other.vel.y *= -1
+            elif other.is_on_floor:
+                self.vel.y *= -1
+            else:
+                other.vel.y, self.vel.y = self.vel.y, other.vel.y
+            return True
+
         return False
+
+    def bounce_walls(self) -> None:
+        colliding_wall = list(filter(lambda wall: self._next_x_rect.intersects(wall), self._game.walls))
+        if colliding_wall:
+            self._snap_horizontally_to_rect(colliding_wall[0])
+            self.vel.x *= -1
 

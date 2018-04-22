@@ -32,6 +32,11 @@ class Game:
     def _detect_collision(self) -> None:
         self.players[0].detect_collision_and_bounce(self.players[1])
 
+    def _detect_walls(self) -> None:
+        for player in self.players:
+            player.bounce_walls()
+
     def update(self) -> None:
         self._update_players()
         self._detect_collision()
+        self._detect_walls()

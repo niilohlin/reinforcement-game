@@ -32,11 +32,11 @@ class PygameView:
         self.screen.blit(surface, rect.origin.to_tuple())
 
     def draw_game(self):
-        self.fill_rect(game.floor, (0, 0, 0))
-        self.fill_rect(game.walls[0], (0, 0, 0))
-        self.fill_rect(game.walls[1], (0, 0, 0))
-        self.fill_rect(game.players[0].frame, (100, 100, 100))
-        self.fill_rect(game.players[1].frame, (100, 100, 100))
+        self.fill_rect(self.game.floor, (0, 0, 0))
+        self.fill_rect(self.game.walls[0], (0, 0, 0))
+        self.fill_rect(self.game.walls[1], (0, 0, 0))
+        self.fill_rect(self.game.players[0].frame, (100, 100, 100))
+        self.fill_rect(self.game.players[1].frame, (100, 100, 100))
 
     def run(self):
         while self.game.is_running:
@@ -50,7 +50,7 @@ class PygameView:
                     sys.exit()
 
             for controller in self.controllers:
-                controller.control(game, keys)
+                controller.control(self.game, keys)
             self.game.update()
 
             self.surface.fill((255,255,255))
@@ -61,12 +61,3 @@ class PygameView:
             pygame.display.update()
 
             self.fpsClock.tick(self.FPS) # and tick the clock.
-
-if __name__ == '__main__':
-    pygame.init()
-    game = Game()
-    keyboardController = KeyboardController(game.players[0])
-    randomController = RandomController(game.players[1])
-    view = PygameView(game, [keyboardController, randomController])
-    view.run()
-

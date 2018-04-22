@@ -9,5 +9,8 @@ class RandomController:
     def __init__(self, player: Player) -> None:
         self.player = player
 
+    def nothing(self) -> None:
+        pass
+
     def control(self, game: Game, keys: Tuple) -> None:
-        choice([self.player.jump, self.player.right, self.player.left])()
+        choice([self.player.jump, self.player.right, self.player.left, self.nothing])()
