@@ -83,12 +83,17 @@ class Player:
     def detect_collision_and_bounce(self, other: 'Player') -> bool:
         if self._next_x_rect.intersects(other.frame):
             self._snap_horizontally_to_rect(other.frame)
-            self.vel.x *= -1
+            self.vel.x, other.vel.x = other.vel.x, self.vel.x
             return False
 
         if self._next_y_rect.intersects(other.frame):
             self._snap_vertically_to_rect(other.frame)
-            self.vel.y *= -1
+            if other.is_on_floor:
+                self.vel.y *= -1
+            elif self.is_on_floor:
+                other.vel.y *= -1
+            else:
+                self.vel.y, other.vel.y = other.vel.y, self.vel.y
             return True
 
         return False
