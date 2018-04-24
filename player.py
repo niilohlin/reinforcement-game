@@ -1,16 +1,19 @@
 
 from vector import *
 from rect import *
-from game import Game
 from utils import sign, any
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from math import atan
 
 PLAYER_WIDTH = 40 # type: float
 PLAYER_HEIGHT = 100 # type: float
 
+
+if TYPE_CHECKING:
+    from game import Game
+
 class Player:
-    def __init__(self, game: Game, start_x: float, start_y: float) -> None:
+    def __init__(self, game: 'Game', start_x: float, start_y: float) -> None:
         self.frame = Rect(start_x, start_y, PLAYER_WIDTH, PLAYER_HEIGHT) # type: Rect
         self.vel = Vector(0, 0) # type: Vector
         self._game = game # type: Game

@@ -3,14 +3,13 @@ from typing import List, TYPE_CHECKING, Dict
 from vector import *
 from rect import *
 from utils import any
+from player import Player, PLAYER_WIDTH, PLAYER_HEIGHT
 
 GAME_WIDTH = 800 # type: float
 GAME_HEIGHT = 600 # type: float
 
-
 class Game:
     def __init__(self) -> None:
-        from player import Player, PLAYER_WIDTH, PLAYER_HEIGHT
         self.floor = Rect(0, GAME_HEIGHT - float(GAME_HEIGHT / 3), GAME_WIDTH, GAME_HEIGHT) # type: Rect
 
         left_player = Player(self, PLAYER_WIDTH * 2, self.floor.origin.y - PLAYER_HEIGHT)
@@ -24,7 +23,6 @@ class Game:
 
 
     def restart(self) -> None:
-        from player import Player, PLAYER_WIDTH, PLAYER_HEIGHT
         self.players[0].frame.origin = Vector(PLAYER_WIDTH * 2, self.floor.origin.y - PLAYER_HEIGHT)
         self.players[1].frame.origin = Vector(GAME_WIDTH - PLAYER_WIDTH * 3, self.floor.origin.y - PLAYER_HEIGHT)
         for player in self.players:

@@ -12,8 +12,6 @@ from pygame_view import PygameView
 def start():
     pygame.init()
     game = Game()
-    game.players[1].frame.origin.x = game.players[0].frame.origin.x + 1
-    game.players[1].frame.origin.y = game.players[1].frame.size.height + 1
     keyboardController = KeyboardController(game.players[0])
     randomController = RandomController(game.players[1])
     view = PygameView(game, [keyboardController, randomController])
