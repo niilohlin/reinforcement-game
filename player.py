@@ -81,35 +81,40 @@ class Player:
 
 
     def detect_collision_and_bounce(self, other: 'Player') -> bool:
-        if self._next_x_rect.intersects(other.frame):
-            self._snap_horizontally_to_rect(other.frame)
-            self.vel.x, other.vel.x = other.vel.x, self.vel.x
-            return False
 
-        if other._next_x_rect.intersects(self.frame):
-            other._snap_horizontally_to_rect(self.frame)
-            other.vel.x, self.vel.x = self.vel.x, other.vel.x
-            return False
+        for frame in [other.frame, other._next_x_rect]:
+            if self._next_x_rect.intersects(frame):
+                self._snap_horizontally_to_rect(frame)
+                self.vel.x, other.vel.x = other.vel.x, self.vel.x
+                return False
 
-        if self._next_y_rect.intersects(other.frame):
-            self._snap_vertically_to_rect(other.frame)
-            if other.is_on_floor:
-                self.vel.y *= -1
-            elif self.is_on_floor:
-                other.vel.y *= -1
-            else:
-                self.vel.y, other.vel.y = other.vel.y, self.vel.y
-            return True
+        for frame in [self.frame, self._next_x_rect]:
+            if other._next_x_rect.intersects(frame):
+                other._snap_horizontally_to_rect(frame)
+                other.vel.x, self.vel.x = self.vel.x, other.vel.x
+                return False
 
-        if other._next_y_rect.intersects(self.frame):
-            other._snap_vertically_to_rect(self.frame)
-            if self.is_on_floor:
-                other.vel.y *= -1
-            elif other.is_on_floor:
-                self.vel.y *= -1
-            else:
-                other.vel.y, self.vel.y = self.vel.y, other.vel.y
-            return True
+        for frame in [other.frame, other._next_y_rect]:
+            if self._next_y_rect.intersects(frame):
+                self._snap_vertically_to_rect(frame)
+                if other.is_on_floor:
+                    self.vel.y *= -1
+                elif self.is_on_floor:
+                    other.vel.y *= -1
+                else:
+                    self.vel.y, other.vel.y = other.vel.y, self.vel.y
+                return True
+
+        for frame in [self.frame, self._next_y_rect]:
+            if other._next_y_rect.intersects(frame):
+                other._snap_vertically_to_rect(frame)
+                if self.is_on_floor:
+                    other.vel.y *= -1
+                elif other.is_on_floor:
+                    self.vel.y *= -1
+                else:
+                    other.vel.y, self.vel.y = self.vel.y, other.vel.y
+                return True
 
         return False
 
