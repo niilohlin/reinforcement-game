@@ -39,11 +39,13 @@ class Game:
 
     def _detect_collision(self) -> None:
         for (player1, player2) in permutations(self.players):
-            winner = player1.detect_collision_and_bounce(player2)
+            (winner, did_collide) = player1.detect_collision_and_bounce(player2)
             if winner:
                 self.score[winner] += 1
                 self.restart()
                 return
+            if did_collide:
+                break
 
     def _detect_walls(self) -> None:
         for player in self.players:

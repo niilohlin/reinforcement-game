@@ -15,7 +15,7 @@ def start():
     game = Game()
     keyboard_controller = KeyboardController(game.players[0])
     heuristic_controller = HeuristicController(game.players[1])
-    view = PygameView(game, [keyboard_controller, heuristic_controller])
+    view = PygameView(game, [heuristic_controller, keyboard_controller])
     view.run()
 
 

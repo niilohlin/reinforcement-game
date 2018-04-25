@@ -101,13 +101,13 @@ class Player:
             self.frame.origin.y = rect.bottom
 
 
-    def detect_collision_and_bounce(self, other: 'Player') -> Optional['Player']:
+    def detect_collision_and_bounce(self, other: 'Player') -> Tuple[Optional['Player'], bool]:
 
         for frame in [other.frame, other._next_x_rect]:
             if self.frame.intersects(frame) or self._next_x_rect.intersects(frame):
                 self._snap_horizontally_to_rect(frame)
                 self.vel.x, other.vel.x = other.vel.x, self.vel.x
-                return None
+                return (None, True)
 
         for frame in [other.frame, other._next_y_rect]:
             if self.frame.intersects(frame) or self._next_y_rect.intersects(frame):
@@ -124,9 +124,9 @@ class Player:
                     other.vel.y *= -1
                 else:
                     self.vel.y, other.vel.y = other.vel.y, self.vel.y
-                return winner
+                return (winner, True)
 
-        return None
+        return (None, False)
 
     def bounce_walls(self) -> None:
         colliding_wall = list(filter(lambda wall: self._next_x_rect.intersects(wall), self._game.walls))
