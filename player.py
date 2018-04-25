@@ -4,6 +4,7 @@ from rect import *
 from utils import sign, any
 from typing import Optional, TYPE_CHECKING
 from math import atan
+from copy import copy
 
 PLAYER_WIDTH = 40 # type: float
 PLAYER_HEIGHT = 100 # type: float
@@ -14,6 +15,7 @@ if TYPE_CHECKING:
 class Player:
     def __init__(self, game: 'Game', start_x: float, start_y: float) -> None:
         self.frame = Rect(start_x, start_y, PLAYER_WIDTH, PLAYER_HEIGHT) # type: Rect
+        self.original_start_pos = Vector(start_x, start_y) # type: Vector
         self.vel = Vector(0, 0) # type: Vector
         self._game = game # type: Game
         self._max_speed = 5 # type: float
@@ -25,6 +27,7 @@ class Player:
         self.frame.origin += self.vel
 
     def reset(self) -> None:
+        self.frame.origin = copy(self.original_start_pos)
         self.vel = Vector(0, 0)
         self.ticks_until_dash_ability = 0
 
