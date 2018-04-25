@@ -7,14 +7,15 @@ import random
 from game import *
 from keyboard_controller import KeyboardController
 from random_controller import RandomController
+from heuristic_controller import HeuristicController
 from pygame_view import PygameView
 
 def start():
     pygame.init()
     game = Game()
-    keyboardController = KeyboardController(game.players[0])
-    randomController = RandomController(game.players[1])
-    view = PygameView(game, [keyboardController, randomController])
+    keyboard_controller = KeyboardController(game.players[0])
+    heuristic_controller = HeuristicController(game.players[1])
+    view = PygameView(game, [keyboard_controller, heuristic_controller])
     view.run()
 
 
