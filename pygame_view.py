@@ -1,14 +1,10 @@
 
 import pygame
 import sys
-import time
-import os
-import random
-from game import *
-from keyboard_controller import KeyboardController
-from random_controller import RandomController
-
-from pygame.locals import RLEACCEL, QUIT, K_r, K_SPACE, K_UP, K_LEFT, K_RIGHT, K_w, K_d, K_a, K_e
+from game import GAME_WIDTH, GAME_HEIGHT
+from vector import Vector
+from rect import Rect
+from pygame.locals import QUIT
 
 
 class PygameView:
@@ -19,12 +15,11 @@ class PygameView:
         self.screen = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT), 0, 32)
         self.surface = pygame.Surface(self.screen.get_size())
         self.surface = self.surface.convert()
-        self.surface.fill((255,255,255))
+        self.surface.fill((255, 255, 255))
         self.clock = pygame.time.Clock()
         self.game = game
         self.controllers = controllers
         pygame.key.set_repeat(1, 1)
-
 
     def fill_rect(self, rect, color):
         surface = pygame.Surface(rect.size.to_tuple())
@@ -33,7 +28,11 @@ class PygameView:
 
     def draw_score(self):
         font = pygame.font.Font(None, 18)
-        text = font.render("{} - {}".format(self.game.score[self.game.players[0]], self.game.score[self.game.players[1]]), 1, (10, 10, 10))
+        text = font.render("{} - {}"
+                           .format(self.game.score[self.game.players[0]],
+                                   self.game.score[self.game.players[1]]),
+                           1,
+                           (10, 10, 10))
         textpos = text.get_rect()
         textpos.centerx = GAME_WIDTH / 2
         self.screen.blit(text, textpos)
@@ -41,14 +40,32 @@ class PygameView:
     def draw_dash_bar(self, player, pos, direction):
         assert(direction == "left" or direction == "right")
         if direction == "left":
-            self.fill_rect(Rect(pos.x, pos.y, player.ticks_until_dash_ability / player.max_dash_ticks * 300, 10), (0, 0, 0))
+            self.fill_rect(
+                    Rect(pos.x,
+                         pos.y,
+                         player.ticks_until_dash_ability /
+                         player.max_dash_ticks * 300,
+                         10),
+                    (0, 0, 0)
+            )
         elif direction == "right":
-            dash_length = player.ticks_until_dash_ability / player.max_dash_ticks * 300
-            self.fill_rect(Rect(pos.x - dash_length, pos.y, dash_length, 10), (0, 0, 0))
+            dash_length = player.ticks_until_dash_ability /\
+                    player.max_dash_ticks * 300
+            self.fill_rect(
+                    Rect(pos.x - dash_length,
+                         pos.y,
+                         dash_length,
+                         10),
+                    (0, 0, 0)
+            )
 
     def draw_dash_bars(self):
-        self.draw_dash_bar(self.game.players[0], Vector(80, 10), "left")
-        self.draw_dash_bar(self.game.players[1], Vector(GAME_WIDTH - 80, 10), "right")
+        self.draw_dash_bar(self.game.players[0],
+                           Vector(80, 10),
+                           "left")
+        self.draw_dash_bar(self.game.players[1],
+                           Vector(GAME_WIDTH - 80, 10),
+                           "right")
 
     def draw_game(self):
         self.fill_rect(self.game.floor, (0, 0, 0))
@@ -74,11 +91,11 @@ class PygameView:
                 controller.control(self.game, keys)
             self.game.update()
 
-            self.surface.fill((255,255,255))
-            self.screen.blit(self.surface, (0,0))
+            self.surface.fill((255, 255, 255))
+            self.screen.blit(self.surface, (0, 0))
             self.draw_game()
 
             pygame.display.flip()
             pygame.display.update()
 
-            self.fpsClock.tick(self.FPS) # and tick the clock.
+            self.fpsClock.tick(self.FPS)

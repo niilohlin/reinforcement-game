@@ -1,11 +1,13 @@
 
-from vector import *
-from typing import Iterator, Optional
+from vector import Vector
+from typing import Iterator
+import numpy as np
 
 class Rect:
-    def __init__(self, x: float, y: float, width: float, height: float) -> None:
-        self.origin = Vector(x, y) # type: Vector
-        self.size = Vector(width, height) # type: Vector
+    def __init__(self, x: float, y: float, width: float, height: float)\
+            -> None:
+        self.origin = Vector(x, y)  # type: Vector
+        self.size = Vector(width, height)  # type: Vector
 
     @property
     def bottom(self) -> float:
@@ -24,10 +26,14 @@ class Rect:
         return self.origin.x + self.size.width
 
     def covers(self, vector: Vector) -> bool:
-        return self.left <= vector.x <= self.right and self.top <= vector.y <= self.bottom
+        return self.left <= vector.x <= self.right and \
+            self.top <= vector.y <= self.bottom
 
     def moved(self, vector: Vector) -> 'Rect':
-        return Rect(self.origin.x + vector.x, self.origin.y + vector.y, self.size.width, self.size.height)
+        return Rect(self.origin.x + vector.x,
+                    self.origin.y + vector.y,
+                    self.size.width,
+                    self.size.height)
 
     @property
     def points(self) -> Iterator[Vector]:
@@ -43,3 +49,7 @@ class Rect:
         if recurse:
             return other.intersects(self, False)
         return False
+
+    @property
+    def to_array(self):
+        return np.array([self.origin.to_array, self.size.to_array]).flatten()

@@ -1,11 +1,13 @@
 
 from typing import Tuple
 from math import atan
+import numpy as np
+
 
 class Vector:
     def __init__(self, x: float, y: float) -> None:
-        self.x = x # type: float
-        self.y = y # type: float
+        self.x = x  # type: float
+        self.y = y  # type: float
 
     def to_tuple(self) -> Tuple[float, float]:
         return (self.x, self.y)
@@ -36,4 +38,6 @@ class Vector:
     def angle(self) -> float:
         return atan(self.y/self.x)
 
-
+    @property
+    def to_array(self):
+        return np.array([self.x, self.y])

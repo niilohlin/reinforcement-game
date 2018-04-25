@@ -1,27 +1,38 @@
 
-from typing import List, TYPE_CHECKING, Dict
-from vector import *
-from rect import *
+from typing import List, Dict # noqa F401
+from rect import Rect
 from utils import any
 from player import Player, PLAYER_WIDTH, PLAYER_HEIGHT
 from itertools import permutations
+import numpy as np
 
-GAME_WIDTH = 800 # type: float
-GAME_HEIGHT = 600 # type: float
+GAME_WIDTH = 800  # type: float
+GAME_HEIGHT = 600  # type: float
+
 
 class Game:
     def __init__(self) -> None:
-        self.floor = Rect(0, GAME_HEIGHT - float(GAME_HEIGHT / 3), GAME_WIDTH, GAME_HEIGHT) # type: Rect
+        self.floor = Rect(0,
+                          GAME_HEIGHT - float(GAME_HEIGHT / 3),
+                          GAME_WIDTH,
+                          GAME_HEIGHT)  # type: Rect
 
-        left_player = Player(self, PLAYER_WIDTH * 2, self.floor.origin.y - PLAYER_HEIGHT)
-        right_player = Player(self, GAME_WIDTH - PLAYER_WIDTH * 3, self.floor.origin.y - PLAYER_HEIGHT)
+        left_player = Player(self,
+                             PLAYER_WIDTH * 2,
+                             self.floor.origin.y - PLAYER_HEIGHT)
+        right_player = Player(self,
+                              GAME_WIDTH - PLAYER_WIDTH * 3,
+                              self.floor.origin.y - PLAYER_HEIGHT)
 
-        self.players = [left_player, right_player] # type: List[Player]
+        self.players = [left_player, right_player]  # type: List[Player]
         left_wall = Rect(0, 0, PLAYER_WIDTH, GAME_HEIGHT)
-        right_wall = Rect(GAME_WIDTH - PLAYER_WIDTH, 0, PLAYER_WIDTH, GAME_HEIGHT)
-        self.walls = [left_wall, right_wall] # type: List[Rect]
-        self.score = {left_player: 0, right_player: 0} # type: Dict[Player, int]
-
+        right_wall = Rect(GAME_WIDTH - PLAYER_WIDTH,
+                          0,
+                          PLAYER_WIDTH,
+                          GAME_HEIGHT)
+        self.walls = [left_wall, right_wall]  # type: List[Rect]
+        self.score = {left_player: 0,
+                      right_player: 0}  # type: Dict[Player, int]
 
     def restart(self) -> None:
         for player in self.players:
@@ -37,7 +48,8 @@ class Game:
 
     def _detect_collision(self) -> None:
         for (player1, player2) in permutations(self.players):
-            (winner, did_collide) = player1.detect_collision_and_bounce(player2)
+            (winner, did_collide) = player1.\
+                                    detect_collision_and_bounce(player2)
             if winner:
                 self.score[winner] += 1
                 self.restart()
@@ -53,3 +65,10 @@ class Game:
         self._update_players()
         self._detect_collision()
         self._detect_walls()
+
+    @property
+    def to_array(self):
+        player_arrays = np.array([])
+        for player in self.players:
+            player_arrays = np.append(player_arrays, player.to_array)
+        return player_arrays
