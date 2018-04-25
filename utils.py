@@ -1,7 +1,8 @@
 
-from typing import Union, Callable, Iterable
+from typing import Union, Callable, Iterable, Tuple, TypeVar, Sized, Sequence
 
 angle = float
+T = TypeVar('T')
 
 def any(f: Callable, lst: Iterable) -> bool:
     for i in lst:

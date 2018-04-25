@@ -4,6 +4,7 @@ from vector import *
 from rect import *
 from utils import any
 from player import Player, PLAYER_WIDTH, PLAYER_HEIGHT
+from itertools import permutations
 
 GAME_WIDTH = 800 # type: float
 GAME_HEIGHT = 600 # type: float
@@ -37,16 +38,12 @@ class Game:
             player.update()
 
     def _detect_collision(self) -> None:
-        winner = self.players[0].detect_collision_and_bounce(self.players[1])
-        if winner:
-            self.score[winner] += 1
-            self.restart()
-            return
-
-        winner = self.players[1].detect_collision_and_bounce(self.players[0])
-        if winner:
-            self.score[winner] += 1
-            self.restart()
+        for (player1, player2) in permutations(self.players):
+            winner = player1.detect_collision_and_bounce(player2)
+            if winner:
+                self.score[winner] += 1
+                self.restart()
+                return
 
     def _detect_walls(self) -> None:
         for player in self.players:

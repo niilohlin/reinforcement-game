@@ -28,7 +28,5 @@ class TestCollision(unittest.TestCase):
 
         self.assertEqual(old_other_player_pos, game.players[0].frame.origin)
 
-
-
 if __name__ == '__main__':
     unittest.main()
