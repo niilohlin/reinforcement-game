@@ -13,4 +13,4 @@ class RandomController:
         pass
 
     def control(self, game: Game, keys: Tuple) -> None:
-        choice([self.player.jump, self.player.right, self.player.left, self.nothing])()
+        choice([self.player.jump, self.player.right, self.player.left, self.player.dash, self.nothing])()

@@ -32,12 +32,23 @@ class PygameView:
         self.screen.blit(surface, rect.origin.to_tuple())
 
     def draw_score(self):
-        font = pygame.font.Font(None, 14)
+        font = pygame.font.Font(None, 18)
         text = font.render("{} - {}".format(self.game.score[self.game.players[0]], self.game.score[self.game.players[1]]), 1, (10, 10, 10))
         textpos = text.get_rect()
         textpos.centerx = GAME_WIDTH / 2
         self.screen.blit(text, textpos)
-        pass
+
+    def draw_dash_bar(self, player, pos, direction):
+        assert(direction == "left" or direction == "right")
+        if direction == "left":
+            self.fill_rect(Rect(pos.x, pos.y, player.ticks_until_dash_ability / player.max_dash_ticks * 300, 10), (0, 0, 0))
+        elif direction == "right":
+            dash_length = player.ticks_until_dash_ability / player.max_dash_ticks * 300
+            self.fill_rect(Rect(pos.x - dash_length, pos.y, dash_length, 10), (0, 0, 0))
+
+    def draw_dash_bars(self):
+        self.draw_dash_bar(self.game.players[0], Vector(80, 10), "left")
+        self.draw_dash_bar(self.game.players[1], Vector(GAME_WIDTH - 80, 10), "right")
 
     def draw_game(self):
         self.fill_rect(self.game.floor, (0, 0, 0))
@@ -46,6 +57,7 @@ class PygameView:
         self.fill_rect(self.game.players[0].frame, (100, 100, 100))
         self.fill_rect(self.game.players[1].frame, (100, 100, 100))
         self.draw_score()
+        self.draw_dash_bars()
 
     def run(self):
         while self.game.is_running:

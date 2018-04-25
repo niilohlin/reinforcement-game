@@ -8,7 +8,6 @@ from math import atan
 PLAYER_WIDTH = 40 # type: float
 PLAYER_HEIGHT = 100 # type: float
 
-
 if TYPE_CHECKING:
     from game import Game
 
@@ -19,15 +18,22 @@ class Player:
         self._game = game # type: Game
         self._max_speed = 5 # type: float
         self._acceleration = 0.5 # type: float
+        self.max_dash_ticks = 60 * 3 # type: int
+        self.ticks_until_dash_ability = 0 # type: int
 
     def _update_pos(self) -> None:
         self.frame.origin += self.vel
+
+    def reset(self) -> None:
+        self.vel = Vector(0, 0)
+        self.ticks_until_dash_ability = 0
 
     def update(self) -> None:
         self._apply_gravity()
         self._stand_on_floor()
         self._update_pos()
         self._deaccelerate()
+        self._update_dash()
 
     def jump(self) -> None:
         if self.is_on_floor:
@@ -41,9 +47,21 @@ class Player:
         if self.vel.x < self._max_speed:
             self.vel.x += self._acceleration
 
+    def dash(self) -> None:
+        if self.can_dash:
+            self.vel.x *= 3
+            self.ticks_until_dash_ability = self.max_dash_ticks
+
     @property
     def is_on_floor(self) -> bool:
         return self.frame.bottom >= self._game.floor.top
+
+    @property
+    def can_dash(self) -> bool:
+        return self.ticks_until_dash_ability <= 0
+
+    def _update_dash(self) -> None:
+        self.ticks_until_dash_ability = max(0, self.ticks_until_dash_ability - 1)
 
     def _deaccelerate(self) -> None:
         self.vel.x -= 0.1 * sign(self.vel.x)

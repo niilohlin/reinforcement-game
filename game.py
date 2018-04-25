@@ -27,7 +27,7 @@ class Game:
         self.players[0].frame.origin = Vector(PLAYER_WIDTH * 2, self.floor.origin.y - PLAYER_HEIGHT)
         self.players[1].frame.origin = Vector(GAME_WIDTH - PLAYER_WIDTH * 3, self.floor.origin.y - PLAYER_HEIGHT)
         for player in self.players:
-            player.vel = Vector(0, 0)
+            player.reset()
 
     @property
     def is_running(self) -> bool:
