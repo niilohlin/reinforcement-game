@@ -10,7 +10,7 @@ from random_controller import RandomController
 from heuristic_controller import HeuristicController
 from pygame_view import PygameView
 
-def start():
+def start() -> None:
     pygame.init()
     game = Game()
     keyboard_controller = KeyboardController(game.players[0])
