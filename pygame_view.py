@@ -1,14 +1,16 @@
 
 import pygame
 import sys
-from game import GAME_WIDTH, GAME_HEIGHT
+from game import Game, GAME_WIDTH, GAME_HEIGHT
 from vector import Vector
 from rect import Rect
 from pygame.locals import QUIT
+from view import View
+from typing import Optional, Tuple
 
 
-class PygameView:
-    def __init__(self, game, controllers):
+class PygameView(View):
+    def __init__(self, game):
         self.FPS = 60
         self.fpsClock = pygame.time.Clock()
 
@@ -18,7 +20,6 @@ class PygameView:
         self.surface.fill((255, 255, 255))
         self.clock = pygame.time.Clock()
         self.game = game
-        self.controllers = controllers
         pygame.key.set_repeat(1, 1)
 
     def fill_rect(self, rect, color):
@@ -76,26 +77,23 @@ class PygameView:
         self.draw_score()
         self.draw_dash_bars()
 
-    def run(self):
-        while self.game.is_running:
-            pygame.event.pump()
-            keys = pygame.key.get_pressed()
+    def draw(self, game: Game) -> None:
+        self.surface.fill((255, 255, 255))
+        self.screen.blit(self.surface, (0, 0))
+        self.draw_game()
 
-            for event in pygame.event.get():
+        pygame.display.flip()
+        pygame.display.update()
 
-                if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
+        self.fpsClock.tick(self.FPS)
 
-            for controller in self.controllers:
-                controller.control(self.game, keys)
-            self.game.update()
+    def get_keys(self) -> Optional[Tuple]:
+        pygame.event.pump()
+        keys = pygame.key.get_pressed()
 
-            self.surface.fill((255, 255, 255))
-            self.screen.blit(self.surface, (0, 0))
-            self.draw_game()
+        for event in pygame.event.get():
 
-            pygame.display.flip()
-            pygame.display.update()
-
-            self.fpsClock.tick(self.FPS)
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+        return keys

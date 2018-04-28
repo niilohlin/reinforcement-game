@@ -59,6 +59,9 @@ class Player:
             self.vel.x *= 3
             self.ticks_until_dash_ability = self.max_dash_ticks
 
+    def idle(self) -> None:
+        pass
+
     @property
     def is_on_floor(self) -> bool:
         return self.frame.bottom >= self._game.floor.top
@@ -154,3 +157,7 @@ class Player:
         return np.hstack([self.frame.to_array,
                          self.vel.to_array,
                          [self.ticks_until_dash_ability]]).flatten()
+
+    @property
+    def all_actions(self):
+        return [self.jump, self.left, self.right, self.dash, self.idle]
