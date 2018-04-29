@@ -1,5 +1,5 @@
 
-from typing import List, Dict # noqa F401
+from typing import List, Dict, Optional # noqa F401
 from rect import Rect
 from utils import any
 from player import Player, PLAYER_WIDTH, PLAYER_HEIGHT
@@ -33,14 +33,22 @@ class Game:
         self.walls = [left_wall, right_wall]  # type: List[Rect]
         self.score = {left_player: 0,
                       right_player: 0}  # type: Dict[Player, int]
+        self._max_score = 10  # type: int
 
     def restart(self) -> None:
         for player in self.players:
             player.reset()
 
     @property
+    def winner(self) -> Optional[Player]:
+        for player in self.players:
+            if self.score[player] == self._max_score:
+                return player
+        return None
+
+    @property
     def is_running(self) -> bool:
-        return not any(lambda player: self.score[player] >= 10, self.players)
+        return not any(lambda player: self.score[player] >= self._max_score, self.players)
 
     def _update_players(self) -> None:
         for player in self.players:
