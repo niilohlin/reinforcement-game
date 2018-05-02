@@ -70,7 +70,7 @@ class DeepQAgent:
 
             self.model.fit(state, final_target, epochs=1, verbose=0)
 
-        self.epsilon = min(self.epsilon_min, self.epsilon_decay * self.epsilon)
+        self.epsilon = max(self.epsilon_min, self.epsilon_decay * self.epsilon)
 
     def load(self, name: str) -> None:
         self.model.load_weights(name)

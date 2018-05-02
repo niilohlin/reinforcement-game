@@ -22,6 +22,7 @@ class QLearningController:
         self._previous_player_score = None  # type: Optional[int]
         self._previous_other_score = None  # type: Optional[int]
         self._previous_action = None  # type: Optional[int]
+        self._episode = 0  # type: int
 
     def _get_reward(self, game: Game) -> float:
         other_player = self._other_player(game)
@@ -40,10 +41,10 @@ class QLearningController:
 
         if game.score[self.player] > self._previous_player_score:
             self._previous_player_score = game.score[self.player]
-            return 1
+            return 100
         if game.score[other_player] > self._previous_other_score:
             self._previous_other_score = game.score[other_player]
-            return -1
+            return -100
 
         return 0
 
@@ -54,7 +55,8 @@ class QLearningController:
         return None
 
     def control(self, game: Game, keys: Tuple) -> None:
-        if not game.is_running:
+        self._episode += 1
+        if not game.is_running or self._episode % 100 == 0:
             self.agent.save('./models/reinforcement_game.h5')
             return
 
@@ -73,9 +75,10 @@ class QLearningController:
         new_state = game.to_array
         new_state = np.reshape(new_state, [1, 14])
 
-        self.agent.remember(new_state, self._previous_action, reward_for_previous_action, new_state, not game.is_running)
+        self.agent.remember(self._previous_state, self._previous_action, reward_for_previous_action, new_state, not game.is_running)
 
         self._previous_state = new_state
 
         if len(self.agent.memory) >= BATCH_SIZE:
             self.agent.learn_from_memory(BATCH_SIZE)
+        print("epsilon: " + str(self.agent.epsilon) + " episode: " + str(self._episode))

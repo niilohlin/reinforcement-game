@@ -11,6 +11,7 @@ from typing import Optional, Tuple
 
 class PygameView(View):
     def __init__(self, game):
+        pygame.init()
         self.FPS = 60
         self.fpsClock = pygame.time.Clock()
 

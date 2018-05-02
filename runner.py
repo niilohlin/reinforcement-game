@@ -5,6 +5,7 @@ from view import View
 from controller import Controller
 from q_learning_controller import QLearningController
 from heuristic_controller import HeuristicController
+from random_controller import RandomController
 from pygame_view import PygameView
 from cli_view import CLIView
 
@@ -38,13 +39,15 @@ class LearningRunner:
     def __init__(self):
         self.game = Game()
         keyboard_controller = QLearningController(self.game.players[0])  # type: Controller
-        heuristic_controller = HeuristicController(self.game.players[1])  # type: Controller
+        heuristic_controller = RandomController(self.game.players[1])  # type: Controller
         self.view = PygameView(self.game)
         self.controllers = [heuristic_controller, keyboard_controller]
 
     def run(self):
         print("starting run")
         while self.game.is_running:
+
+            self.view.get_keys()
 
             for controller in self.controllers:
                 controller.control(self.game, None)

@@ -13,7 +13,6 @@ from runner import Runner, LearningRunner
 from controller import Controller
 
 def start() -> None:
-    pygame.init()
     # game = Game()
     # keyboard_controller = KeyboardController(game.players[0])  # type: Controller
     # heuristic_controller = HeuristicController(game.players[1])  # type: Controller

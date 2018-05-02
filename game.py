@@ -33,7 +33,7 @@ class Game:
         self.walls = [left_wall, right_wall]  # type: List[Rect]
         self.score = {left_player: 0,
                       right_player: 0}  # type: Dict[Player, int]
-        self._max_score = 50  # type: int
+        self._max_score = 10  # type: int
 
     def restart(self) -> None:
         for player in self.players:
