@@ -7,25 +7,25 @@ from keras.layers import Dense
 from keras.optimizers import Adam
 from keras.models import Sequential
 
-BATCH_SIZE = 128  # type: int
-EPISODES = 1500  # type: int
-EPISODE_LENGTH = 1000  # type: int
+BATCH_SIZE: int = 128
+EPISODES: int = 1500
+EPISODE_LENGTH: int = 1000
 
 ActionState = Tuple[np.ndarray, int, float, np.ndarray, bool]
 
 class DeepQAgent:
-    def __init__(self, n_state_features: int, n_actions: int, epsilon: float = 1.0) -> None:
-        self.n_state_features = n_state_features  # type: int
-        self.n_actions = n_actions  # type: int
-        self.epsilon = epsilon  # type: float
+    def __init__(self, n_state_features: int, n_actions: int, epsilon: float = 0.2) -> None:
+        self.n_state_features: int = n_state_features
+        self.n_actions: int = n_actions
+        self.epsilon: float = epsilon
 
         # deque is a rolling buffer.
-        self.memory = deque(maxlen=20000)  # type: Deque[ActionState]
-        self.learning_rate = 0.0001  # type: float
-        self.gamma = 0.9  # type: float
-        self.epsilon_decay = 0.999  # type: float
-        self.epsilon_min = 0.001  # type: float
-        self._model = None  # type: Optional[Sequential]
+        self.memory: Deque[ActionState] = deque(maxlen=20000)
+        self.learning_rate: float = 0.0001
+        self.gamma: float = 0.9
+        self.epsilon_decay: float = 0.999
+        self.epsilon_min: float = 0.001
+        self._model: Optional[Sequential] = None
 
     @property
     def model(self) -> Sequential:
@@ -56,15 +56,15 @@ class DeepQAgent:
         return best_action
 
     def learn_from_memory(self, batch_size: int) -> None:
-        batch = random.sample(self.memory, batch_size)  # type: List[ActionState]
+        batch: List[ActionState] = random.sample(self.memory, batch_size)
 
         for state, action, reward, next_state, terminated in batch:
             if not terminated:
-                target = reward + self.gamma * np.amax(self.model.predict(next_state)[0])  # type: float
+                target: float = reward + self.gamma * np.amax(self.model.predict(next_state)[0])
             else:
                 target = reward
 
-            final_target = self.model.predict(state)  # type: np.ndarray
+            final_target: np.ndarray = self.model.predict(state)
 
             final_target[0][action] = target
 

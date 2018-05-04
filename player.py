@@ -6,8 +6,8 @@ from typing import Optional, TYPE_CHECKING, Tuple
 from copy import copy
 import numpy as np
 
-PLAYER_WIDTH = 40  # type: float
-PLAYER_HEIGHT = 100  # type: float
+PLAYER_WIDTH: float = 40
+PLAYER_HEIGHT: float = 100
 
 if TYPE_CHECKING:
     from game import Game  # noqa F401
@@ -15,17 +15,14 @@ if TYPE_CHECKING:
 
 class Player:
     def __init__(self, game: 'Game', start_x: float, start_y: float) -> None:
-        self.frame = Rect(start_x,
-                          start_y,
-                          PLAYER_WIDTH,
-                          PLAYER_HEIGHT)  # type: Rect
-        self.original_start_pos = Vector(start_x, start_y)  # type: Vector
-        self.vel = Vector(0, 0)  # type: Vector
-        self._game = game  # type: Game
-        self._max_speed = 5  # type: float
-        self._acceleration = 0.5  # type: float
-        self.max_dash_ticks = 60 * 3  # type: int
-        self.ticks_until_dash_ability = 0  # type: int
+        self.frame: Rect = Rect(start_x, start_y, PLAYER_WIDTH, PLAYER_HEIGHT)
+        self.original_start_pos: Vector = Vector(start_x, start_y)
+        self.vel: Vector = Vector(0, 0)
+        self._game: Game = game
+        self._max_speed: float = 5
+        self._acceleration: float = 0.5
+        self.max_dash_ticks: int = 60 * 3
+        self.ticks_until_dash_ability: int = 0
 
     def _update_pos(self) -> None:
         self.frame.origin += self.vel

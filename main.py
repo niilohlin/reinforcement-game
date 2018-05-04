@@ -14,8 +14,8 @@ from controller import Controller
 
 def start() -> None:
     # game = Game()
-    # keyboard_controller = KeyboardController(game.players[0])  # type: Controller
-    # heuristic_controller = HeuristicController(game.players[1])  # type: Controller
+    # keyboard_controller: Controller = KeyboardController(game.players[0])
+    # heuristic_controller: Controller = HeuristicController(game.players[1])
     # controllers = [heuristic_controller, keyboard_controller]
     # view = PygameView(game)
     # runner = Runner(game, controllers, view)

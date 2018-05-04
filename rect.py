@@ -6,8 +6,8 @@ import numpy as np
 class Rect:
     def __init__(self, x: float, y: float, width: float, height: float)\
             -> None:
-        self.origin = Vector(x, y)  # type: Vector
-        self.size = Vector(width, height)  # type: Vector
+        self.origin: Vector = Vector(x, y)
+        self.size: Vector = Vector(width, height)
 
     @property
     def bottom(self) -> float:

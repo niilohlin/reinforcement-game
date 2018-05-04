@@ -12,7 +12,7 @@ class HeuristicController(Controller):
     def control(self, game: Game, keys: Tuple) -> None:
         if not game.is_running:
             return
-        other_player = list(filter(lambda player: player != self.player, game.players))[0] # type: Player
+        other_player: Player = list(filter(lambda player: player != self.player, game.players))[0]
         if other_player.frame.origin.x < self.player.frame.origin.x:
             self.player.left()
         else:

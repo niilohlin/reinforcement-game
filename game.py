@@ -6,16 +6,16 @@ from player import Player, PLAYER_WIDTH, PLAYER_HEIGHT
 from itertools import permutations
 import numpy as np
 
-GAME_WIDTH = 800  # type: float
-GAME_HEIGHT = 600  # type: float
+GAME_WIDTH: float = 800
+GAME_HEIGHT: float = 600
 
 
 class Game:
     def __init__(self) -> None:
-        self.floor = Rect(0,
+        self.floor: Rect = Rect(0,
                           GAME_HEIGHT - float(GAME_HEIGHT / 3),
                           GAME_WIDTH,
-                          GAME_HEIGHT)  # type: Rect
+                          GAME_HEIGHT)
 
         left_player = Player(self,
                              PLAYER_WIDTH * 2,
@@ -24,16 +24,15 @@ class Game:
                               GAME_WIDTH - PLAYER_WIDTH * 3,
                               self.floor.origin.y - PLAYER_HEIGHT)
 
-        self.players = [left_player, right_player]  # type: List[Player]
+        self.players: List[Player] = [left_player, right_player]
         left_wall = Rect(0, 0, PLAYER_WIDTH, GAME_HEIGHT)
         right_wall = Rect(GAME_WIDTH - PLAYER_WIDTH,
                           0,
                           PLAYER_WIDTH,
                           GAME_HEIGHT)
-        self.walls = [left_wall, right_wall]  # type: List[Rect]
-        self.score = {left_player: 0,
-                      right_player: 0}  # type: Dict[Player, int]
-        self._max_score = 10  # type: int
+        self.walls: List[Rect] = [left_wall, right_wall]
+        self.score: Dict[Player, int] = {left_player: 0, right_player: 0}
+        self._max_score: int = 10
 
     def restart(self) -> None:
         for player in self.players:

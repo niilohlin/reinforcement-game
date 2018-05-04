@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ea70dc03-e006-4ad4-ac11-e2b6de6691fd" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/deep_q_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/deep_q_agent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pygame_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/pygame_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristic_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/heuristic_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/reinforcement_game.h5" beforeDir="false" afterPath="$PROJECT_DIR$/models/reinforcement_game.h5" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/q_learning_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/q_learning_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runner.py" beforeDir="false" afterPath="$PROJECT_DIR$/runner.py" afterDir="false" />
     </list>
@@ -23,8 +22,8 @@
       <file leaf-file-name="q_learning_controller.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/q_learning_controller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="82" column="12" selection-start-line="82" selection-start-column="12" selection-end-line="82" selection-end-column="12" />
+            <state relative-caret-position="284">
+              <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
               <folding>
                 <element signature="e#1#41#0" expanded="true" />
               </folding>
@@ -32,11 +31,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="heuristic_controller.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/heuristic_controller.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="14" column="97" selection-start-line="14" selection-start-column="97" selection-end-line="14" selection-end-column="97" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="deep_q_agent.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/deep_q_agent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="78" column="8" selection-start-line="78" selection-start-column="8" selection-end-line="78" selection-end-column="8" />
+            <state relative-caret-position="765">
+              <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -47,8 +55,8 @@
       <file leaf-file-name="game.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1125">
-              <caret line="80" column="62" selection-start-line="80" selection-start-column="62" selection-end-line="80" selection-end-column="62" />
+            <state relative-caret-position="420">
+              <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
               <folding>
                 <element signature="e#1#52#0" expanded="true" />
               </folding>
@@ -80,8 +88,8 @@
       <file leaf-file-name="runner.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/runner.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="42" column="20" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
+            <state relative-caret-position="480">
+              <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
               <folding>
                 <element signature="e#1#45#0" expanded="true" />
               </folding>
@@ -125,18 +133,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/view.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
-              <folding>
-                <element signature="e#0#34#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -150,7 +146,11 @@
     <findStrings>
       <find>isInstance</find>
       <find>starting</find>
+      <find>type:</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -163,14 +163,14 @@
         <option value="$PROJECT_DIR$/Runner.py" />
         <option value="$PROJECT_DIR$/controller.py" />
         <option value="$PROJECT_DIR$/view.py" />
-        <option value="$PROJECT_DIR$/heuristic_controller.py" />
         <option value="$PROJECT_DIR$/random_controller.py" />
         <option value="$PROJECT_DIR$/cli_view.py" />
-        <option value="$PROJECT_DIR$/game.py" />
         <option value="$PROJECT_DIR$/pygame_view.py" />
-        <option value="$PROJECT_DIR$/deep_q_agent.py" />
-        <option value="$PROJECT_DIR$/runner.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/runner.py" />
+        <option value="$PROJECT_DIR$/deep_q_agent.py" />
+        <option value="$PROJECT_DIR$/heuristic_controller.py" />
+        <option value="$PROJECT_DIR$/game.py" />
         <option value="$PROJECT_DIR$/q_learning_controller.py" />
       </list>
     </option>
@@ -188,12 +188,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="reinforcement" type="b2602c69:ProjectViewProjectNode" />
               <item name="reinforcement" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="reinforcement" type="b2602c69:ProjectViewProjectNode" />
+              <item name="reinforcement" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="reinforcement" type="b2602c69:ProjectViewProjectNode" />
@@ -208,11 +214,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="Player&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/player.py&#10;main&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/main.py&#10;q&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/q_learning_controller.py&#10;Py&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/pygame_view.py&#10;py&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/pygame_view.py&#10;pyv&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/pygame_view.py&#10;runner&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/runner.py&#10;rando&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/random_controller.py&#10;view&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/view.py&#10;pygame&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/pygame_view.py&#10;ra&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/random_controller.py&#10;runn&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/runner.py&#10;ran&#9;null&#9;null&#10;game&#9;null&#9;null&#10;player&#9;null&#9;null&#10;ga&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/q_learning_controller.py&#10;agen&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/deep_q_agent.py&#10;game&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/game.py&#10;runner&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/runner.py&#10;learning&#9;null&#9;null&#10;Player&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/player.py&#10;main&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/main.py&#10;q&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/q_learning_controller.py&#10;Py&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/pygame_view.py&#10;py&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/pygame_view.py&#10;pyv&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/pygame_view.py&#10;rando&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/random_controller.py&#10;view&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/view.py&#10;pygame&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/pygame_view.py&#10;ra&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/random_controller.py&#10;runn&#9;FILE&#9;file:///Users/niil/workspace/reinforcement/runner.py&#10;ran&#9;null&#9;null&#10;player&#9;null&#9;null&#10;ga&#9;null&#9;null" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -271,20 +276,20 @@
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24305555" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32876712" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32876712" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.22540474" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.22540474" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -618,13 +623,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/heuristic_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/random_controller.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -672,26 +670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1125">
-          <caret line="80" column="62" selection-start-line="80" selection-start-column="62" selection-end-line="80" selection-end-column="62" />
-          <folding>
-            <element signature="e#1#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/runner.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="42" column="20" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
-          <folding>
-            <element signature="e#1#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -709,20 +687,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/runner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+          <folding>
+            <element signature="e#1#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/deep_q_agent.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="78" column="8" selection-start-line="78" selection-start-column="8" selection-end-line="78" selection-end-column="8" />
+        <state relative-caret-position="765">
+          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/heuristic_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="14" column="97" selection-start-line="14" selection-start-column="97" selection-end-line="14" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
+          <folding>
+            <element signature="e#1#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/q_learning_controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="82" column="12" selection-start-line="82" selection-start-column="12" selection-end-line="82" selection-end-column="12" />
+        <state relative-caret-position="284">
+          <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
           <folding>
             <element signature="e#1#41#0" expanded="true" />
           </folding>

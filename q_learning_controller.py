@@ -7,22 +7,24 @@ import numpy as np
 from deep_q_agent import DeepQAgent, BATCH_SIZE
 import os.path
 
+
 class QLearningController:
-    def __init__(self, player: Player) -> None:
-        self.player = player  # type: Player
+    def __init__(self, player: Player, player_name: str = 'reinforcement_game') -> None:
+        self.player: Player = player
+        self.player_name: str = player_name
 
-        n_actions = len(player.all_actions)  # type: int
+        n_actions: int = len(player.all_actions)
         # hard coded for now. The length of the game state.
-        n_state_features = 14  # type: int
-        self.agent = DeepQAgent(n_state_features, n_actions)  # type: DeepQAgent
+        n_state_features: int = 14
+        self.agent: DeepQAgent = DeepQAgent(n_state_features, n_actions)
 
-        if os.path.isfile('./models/reinforcement_game.h5'):
-            self.agent.load('./models/reinforcement_game.h5')
-        self._previous_state = None  # type: Optional[np.ndarray]
-        self._previous_player_score = None  # type: Optional[int]
-        self._previous_other_score = None  # type: Optional[int]
-        self._previous_action = None  # type: Optional[int]
-        self._episode = 0  # type: int
+        if os.path.isfile(f'./models/{self.player_name}.h5'):
+            self.agent.load(f'./models/{self.player_name}.h5')
+        self._previous_state: Optional[np.ndarray] = None
+        self._previous_player_score: Optional[int] = None
+        self._previous_other_score: Optional[int] = None
+        self._previous_action: Optional[int] = None
+        self._episode: int = 0
 
     def _get_reward(self, game: Game) -> float:
         other_player = self._other_player(game)
@@ -41,10 +43,10 @@ class QLearningController:
 
         if game.score[self.player] > self._previous_player_score:
             self._previous_player_score = game.score[self.player]
-            return 100
+            return 10
         if game.score[other_player] > self._previous_other_score:
             self._previous_other_score = game.score[other_player]
-            return -100
+            return -10
 
         return 0
 
@@ -57,12 +59,12 @@ class QLearningController:
     def control(self, game: Game, keys: Tuple) -> None:
         self._episode += 1
         if not game.is_running or self._episode % 100 == 0:
-            self.agent.save('./models/reinforcement_game.h5')
+            self.agent.save(f'./models/{self.player_name}.h5')
             return
 
         current_state = game.to_array
         current_state = np.reshape(current_state, [1, 14])
-        action = self.agent.get_action(current_state)  # type: int
+        action: int = self.agent.get_action(current_state)
 
         if self._previous_state is None or self._previous_action is None:
             self._previous_state = current_state
@@ -70,7 +72,8 @@ class QLearningController:
             self._previous_action = action
             return
 
-        reward_for_previous_action = self._get_reward(game)  # type: float
+        reward_for_previous_action: float = self._get_reward(game)
+
         self.player.all_actions[action]()
         new_state = game.to_array
         new_state = np.reshape(new_state, [1, 14])

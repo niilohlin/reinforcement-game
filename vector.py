@@ -6,8 +6,8 @@ import numpy as np
 
 class Vector:
     def __init__(self, x: float, y: float) -> None:
-        self.x = x  # type: float
-        self.y = y  # type: float
+        self.x: float = x
+        self.y: float = y
 
     def to_tuple(self) -> Tuple[float, float]:
         return (self.x, self.y)
